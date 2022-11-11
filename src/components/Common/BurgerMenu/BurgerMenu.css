@@ -1,0 +1,127 @@
+.burger {
+  width: 44px;
+  margin-top: 10px;
+  display: none;
+  position: relative;
+  align-items: center;
+
+}
+
+.burger__turner {
+  width: 44px;
+  position: absolute;
+  display: flex;
+  top: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-self: right;
+  gap: 5px;
+  z-index: 10;
+}
+
+.burger__span {
+  width: 28px;
+  height: 3px;
+  background-color: #000;
+  transition: all .5s ease-in-out;
+}
+
+.burger__turner:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.burger__span_clockwise {
+  transform: rotateZ(45deg) translateY(11px);
+}
+
+.burger__span_hidden {
+  background-color: transparent;
+}
+
+.burger__span_nonclockwise {
+  transform: rotateZ(-45deg) translateY(-11px);
+}
+
+.burger__container {
+  position: fixed;
+  left: 0;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 1;
+  transition: all 1s ease;
+}
+
+.burger__container_hidden {
+  left: -100%;
+  transition: all 1s ease;
+}
+
+.burger__menu {
+  width: 68%;
+  padding-top: 159px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background-color: #fff;
+}
+
+.burger__blur {
+  width: 32%;
+  background-color: #000;
+  opacity: .3;
+}
+
+.burger__option {
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #000;
+  text-align: center;
+}
+
+.burger__account {
+  text-decoration: none;
+  width: 100px;
+  margin: 601px auto 0;
+  padding: 8px 20px;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #000;
+  text-align: center;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+}
+
+.burger__option_active {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .burger__blur {
+    display: none;
+  }
+
+  .burger__menu {
+    width: 100%;
+    padding-top: 144px;
+    gap: 24px;
+  }
+
+  .burger__account {
+    margin-top: 444px;
+  }
+}

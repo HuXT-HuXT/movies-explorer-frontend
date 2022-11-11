@@ -1,0 +1,35 @@
+.login__name {
+  margin-bottom: 5px;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  color: #A0A0A0;
+}
+
+.login__input {
+  width: 100%;
+  margin-bottom: 24px;
+  margin-bottom: 6px;
+  padding-bottom: 12px;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  color: #000;
+  justify-self: top;
+  vertical-align: top;
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  outline: none;
+}
+
+.login__input_error {
+  color: #EE3465;
+}
+
+.login__error {
+  width: 100%;
+  min-height: 24px;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
