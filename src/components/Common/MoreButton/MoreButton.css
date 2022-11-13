@@ -23,3 +23,10 @@
   opacity: .7;
   cursor: pointer;
 }
+
+@media screen and (max-width: 480px) {
+  .more {
+    width: 240px;
+    margin: 50px auto 80px;
+  }
+}

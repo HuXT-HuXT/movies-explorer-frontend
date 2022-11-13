@@ -24,9 +24,11 @@ export default function AboutMe ({ personalLinks }) {
         </div>
       </div>
       <p className='aboutme__portfolio'>Портфолио</p>
-      <ArrowLink link='https://ya.ru' value='Статичный сайт' last={false} />
-      <ArrowLink link='https://ya.ru' value='Адаптивный сайт' last={false} />
-      <ArrowLink link='https://ya.ru' value='Одностраничное приложение' last={true} />
+      <ul className='aboutme__link-list'>
+        <ArrowLink link='https://github.com/HuXT-HuXT/how-to-learn' value='Статичный сайт' last={false} />
+        <ArrowLink link='https://huxt-huxt.github.io/russian-travel/' value='Адаптивный сайт' last={false} />
+        <ArrowLink link='https://https://github.com/HuXT-HuXT/how-to-learn' value='Одностраничное приложение' last={true} />
+      </ul>
     </section>
   );
 };

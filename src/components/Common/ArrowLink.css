@@ -1,10 +1,7 @@
 .arrowlink {
   width: 100%;
   padding: 20px 0 19px;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid #E8E8E8;
-  text-decoration: none;
 }
 
 .arrowlink_last {
@@ -14,6 +11,12 @@
 .arrowlink:hover {
   opacity: .7;
   cursor: pointer;
+}
+
+.arrowlink__link {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
 }
 
 .arrowlink__project-description {

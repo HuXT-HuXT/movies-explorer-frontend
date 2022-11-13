@@ -11,4 +11,4 @@ const Preloader = ({ isLoading }) => {
     )
 };
 
-export default Preloader
+export default Preloader;

@@ -1,4 +1,8 @@
 .logo {
+  display: flex;
+}
+
+.logo__image {
   width: 38px;
   object-fit: contain;
   object-position: center;
