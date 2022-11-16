@@ -1,0 +1,12 @@
+.link-block {
+  display: flex;
+  gap: 0 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .link-block {
+    flex-direction: column;
+    gap: 12px 0;
+    align-items: center;
+  }
+}

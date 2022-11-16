@@ -1,0 +1,32 @@
+.subtitle {
+  width: 100%;
+  padding: 0 0 23px;
+  font-size: 22px;
+  line-height: 26.63px;
+  font-weight: 400;
+  letter-spacing: -4%;
+  border-bottom: solid 1px #000;
+}
+
+.subtitle_shorter {
+  padding-top: 100px;
+}
+
+.subtitle_taller {
+  padding-top: 110px;
+}
+
+@media screen and (max-width: 480px) {
+  .subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .subtitle_shorter {
+    padding-top: 70px;
+  }
+
+  .subtitle_taller {
+    padding-top: 70px;
+  }
+}

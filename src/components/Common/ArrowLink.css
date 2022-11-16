@@ -1,0 +1,48 @@
+.arrowlink {
+  width: 100%;
+  padding: 20px 0 19px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.arrowlink_last {
+  border: none;
+}
+
+.arrowlink:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.arrowlink__link {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.arrowlink__project-description {
+  width: 100%;
+  font-size: 30px;
+  line-height: 50px;
+  font-weight: 400;
+  letter-spacing: -4%;
+  color: #000;
+}
+
+.arrowlink__arrow {
+  max-width: 50px;
+  text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+  .arrowlink__project-description {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .arrowlink__project-description {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
