@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link, Route, Switch } from "react-router-dom";
 import './AuthForm.css';
+import ApiError from '../ApiError/ApiError';
 
-export default function AuthForm ({ title, children, button, footerText, footerLink }) {
+export default function AuthForm ({ handleSubmit, title, children, button, footerText, footerLink, disabled, apiResponse }) {
+
   return (
-    <form className='auth-form'>
+    <form className='auth-form' action='#' onSubmit={handleSubmit}>
       <h4 className='auth-form__title'>{title}</h4>
       {children}
-      <input type='submit' className='auth-form__submit' value={button}></input>
+      <ApiError apiResponse={apiResponse} />
+      <input type='submit' className={!disabled ? 'auth-form__submit_disabled auth-form__submit' : 'auth-form__submit'} value={button} disabled={!disabled} />
 
       <Switch>
         <Route path='/sign-in'>

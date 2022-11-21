@@ -26,6 +26,10 @@
   border: none;
 }
 
+.auth-form__submit_disabled {
+  background-color: #A0A0A0;
+}
+
 .auth-form__footer {
   width: 100%;
   margin: 16px 0 70px;

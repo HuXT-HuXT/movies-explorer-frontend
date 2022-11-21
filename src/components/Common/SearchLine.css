@@ -1,6 +1,8 @@
 .search {
   margin: 70px 70px 10px;
   padding-bottom: 69px;
+  display: flex;
+  flex-direction: column;
   border-bottom: 1px solid #E8E8E8;
 }
 
@@ -38,6 +40,8 @@
 
 .search__input:focus {
   outline: none;
+  border: 1px solid #A0A0A0;
+  border-radius: 10px;
 }
 
 .search__submit {

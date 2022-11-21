@@ -2,7 +2,7 @@ import React from 'react';
 import './Login.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
 
-export default function Login () {
+export default function Login ({ handleLogin, apiResponse }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -42,14 +42,27 @@ export default function Login () {
     handlePasswordValidity(e)
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(email, password);
+  }
+
   return (
-      <AuthForm title='Рады видеть!' button='Войти' footerText='Ещё не зарегистрированы?' footerLink='Регистрация' >
+      <AuthForm
+        handleSubmit={handleSubmit}
+        title='Рады видеть!'
+        button='Войти'
+        footerText='Ещё не зарегистрированы?'
+        footerLink='Регистрация'
+        disabled={isEmailValid && isPasswordValid}
+        apiResponse={apiResponse} >
         <p className='login__name'>E-mail</p>
         <input type='email' className={`login__input ${!isEmailValid ? 'login__input_error' : ''}`} required value={email} onChange={handleEmailChange} />
         <span className='login__error'>{emailError}</span>
         <p className='login__name'>Пароль</p>
         <input type='password' className={`login__input ${!isPasswordValid ? 'login__input_error' : ''}`} required minLength='5' maxLength='30' value={password} onChange={handlePasswordChange} />
         <span className='login__error'>{passwordError}</span>
+        <p className='login__api-error'></p>
       </AuthForm>
   );
 };

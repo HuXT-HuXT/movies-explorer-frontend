@@ -2,7 +2,7 @@ import React from 'react';
 import './Register.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
 
-export default function Register () {
+export default function Register ({ handleRegistration, apiResponse }) {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -47,21 +47,33 @@ export default function Register () {
 
   const handleNameChange = (e) => {
     setName(e.target.value);
-    handleNameValidity(e)
+    handleNameValidity(e);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    handleEmailValidity(e)
+    handleEmailValidity(e);
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    handlePasswordValidity(e)
+    handlePasswordValidity(e);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegistration(name, email, password);
+  }
+
   return (
-      <AuthForm title='Добро пожаловать!' button='Зарегистрироваться' footerText='Уже зарегистрированы?' footerLink='Войти' >
+      <AuthForm
+        handleSubmit={handleSubmit}
+        title='Добро пожаловать!'
+        button='Зарегистрироваться'
+        footerText='Уже зарегистрированы?'
+        footerLink='Войти'
+        disabled={isEmailValid && isPasswordValid && isNameValid}
+        apiResponse={apiResponse} >
         <p className='register__name'>Имя</p>
         <input type='text' className={`register__input ${!isNameValid ? 'register__input_error' : ''}`} required minLength='2' maxLength='30' value={name} onChange={handleNameChange} />
         <span className='register__error'>{nameError}</span>

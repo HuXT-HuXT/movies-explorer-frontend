@@ -1,0 +1,46 @@
+.header__logined {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 44px;
+  justify-content: space-between;
+}
+
+.header__movie-menu {
+  display: flex;
+  gap: 0 16px;
+}
+
+.header__movie {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #000;
+}
+
+.header__movie:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.header__movie_bold {
+  font-weight: 500;
+}
+
+.header__account {
+  padding: 8px 20px;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .header__logined {
+    display: none;
+  }
+}
