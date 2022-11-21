@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.huxt-huxt.nomoredomains.icu';
+export const BASE_URL = 'https://api.huxt-huxt.nomoredomains.icu';
 
 export const register = (name, email, password) => fetch(`${BASE_URL}/signup`, {
   method: 'POST',

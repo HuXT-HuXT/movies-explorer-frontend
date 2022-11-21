@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.huxt-huxt.nomoredomains.icu';
+export const BASE_URL = 'https://api.huxt-huxt.nomoredomains.icu';
 
 export const getUserData = () => fetch(`${BASE_URL}/users/me`, {
   method: 'GET',
