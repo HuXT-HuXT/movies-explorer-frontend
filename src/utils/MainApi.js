@@ -2,31 +2,28 @@ export const BASE_URL = 'https://api.huxt-huxt.nomoredomains.icu';
 
 export const getUserData = () => fetch(`${BASE_URL}/users/me`, {
   method: 'GET',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 })
   .then(handleResponse);
 
 export const getSavedMovies = () => fetch(`${BASE_URL}/movies`, {
   method: 'GET',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 })
   .then(handleResponse);
 
 export const updateUser = (name, email) => fetch(`${BASE_URL}/users/me`, {
   method: 'PATCH',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
   body: JSON.stringify({
     name,
     email,
@@ -36,21 +33,19 @@ export const updateUser = (name, email) => fetch(`${BASE_URL}/users/me`, {
 
 export const logout = () => fetch(`${BASE_URL}/signout`, {
   method: 'GET',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 })
   .then(handleResponse);
 
 export const likeMovie = (movie) => fetch(`${BASE_URL}/movies`, {
   method: 'POST',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
   body: JSON.stringify({
     country: movie.country,
     director: movie.director,
@@ -69,11 +64,10 @@ export const likeMovie = (movie) => fetch(`${BASE_URL}/movies`, {
 
 export const dislikeMovie = (movie) => fetch(`${BASE_URL}/movies/${movie._id}`, {
   method: 'DELETE',
-  mode: 'cors',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 })
 
 const handleResponse = (response) => {
