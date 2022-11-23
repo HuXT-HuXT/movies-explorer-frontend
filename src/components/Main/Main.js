@@ -5,7 +5,7 @@ import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { commonLinks, personalLinks } from '../constants/links';
+import { commonLinks, personalLinks } from '../../constants/constants';
 
 export default function Main ({ isLoggedIn }) {
 

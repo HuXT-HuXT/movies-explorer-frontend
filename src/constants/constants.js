@@ -1,118 +1,70 @@
-const moviesC = [
+const personalLinks = [
   {
-    _id: '001',
-    name: 'cinema #1',
-    duration: '1h 47m',
-    link: 'https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2022/08/04111824/star-trek-ai-poster.png',
-    likes: false
+    id: 1,
+    link: 'https://facebook.com',
+    name: 'Facebook',
   },
   {
-    _id: '002',
-    name: 'cinema #2',
-    duration: '1h 47m',
-    link: "https://phantom-marca.unidadeditorial.es/3f7a26ea93ef5560ed05e98d2f32f455/resize/660/f/webp/assets/multimedia/imagenes/2022/04/09/16494753061855.jpg",
-    likes: false
+    id: 2,
+    link: 'https://github.com/HuXT-HuXT',
+    name: 'GitHub',
   },
-  {
-    _id: '003',
-    name: 'cinema #3',
-    duration: '1h 47m',
-    link: 'https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2022/08/04111842/TMNT-ai-poster.jpg',
-    likes: false
-  },
-  {
-    _id: '004',
-    name: 'cinema #4',
-    duration: '1h 47m',
-    link: 'https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2022/08/04111814/batman-ai-poster.jpg',
-    likes: false
-  },
-  {
-    _id: '005',
-    name: 'cinema #5',
-    duration: '1h 47m',
-    link: 'https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2022/08/12112314/steel-magnolias-poster.jpg',
-    likes: false
-  },
-  {
-    _id: '006',
-    name: 'cinema #6',
-    duration: '1h 47m',
-    link: 'https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2022/08/03171339/avatar.png',
-    likes: false
-  },
-  {
-    _id: '007',
-    name: 'cinema #7',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/1-thegreenspider1916.jpg?w=500&h=771',
-    likes: false
-  },
-  {
-    _id: '008',
-    name: 'cinema #8',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/3-linhumaine1924.jpg?w=474',
-    likes: false
-  },
-  {
-    _id: '009',
-    name: 'cinema #9',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/6-the_general1927.jpg?w=500&h=760',
-    likes: false
-  },
-  {
-    _id: '010',
-    name: 'cinema #10',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/7-metropolis.jpg?w=474',
-    likes: true
-  },
-  {
-    _id: '011',
-    name: 'cinema #11',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/8-divinewoman.jpg?w=500&h=751',
-    likes: true
-  },
-  {
-    _id: '012',
-    name: 'cinema #12',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/9-passionjoanofarc1928.jpg?w=474&h=360',
-    likes: true
-  },
-];
+]
 
-const userC = {
-  _id: '123',
-  name: 'Vitalya',
-  email: 'email@email.ru'
-};
+const commonLinks = [
+  {
+    id: 1,
+    link: 'https://practicum.yandex.ru',
+    name: 'Яндекс.Практикум',
+  },
+  {
+    id: 2,
+    link: 'https://github.com/',
+    name: 'GitHub',
+  },
+]
 
-const savedFilmsC = [
+const allLinks = [
   {
-    _id: '010',
-    name: 'cinema #10',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/7-metropolis.jpg?w=474',
-    likes: true
+    id: 1,
+    link: 'https://practicum.yandex.ru',
+    name: 'Яндекс.Практикум',
   },
   {
-    _id: '011',
-    name: 'cinema #11',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/8-divinewoman.jpg?w=500&h=751',
-    likes: true
+    id: 2,
+    link: 'https://github.com/',
+    name: 'GitHub',
   },
   {
-    _id: '012',
-    name: 'cinema #12',
-    duration: '1h 47m',
-    link: 'https://silentlondon.files.wordpress.com/2015/01/9-passionjoanofarc1928.jpg?w=474&h=360',
-    likes: true
+    id: 3,
+    link: 'https://facebook.com',
+    name: 'Facebook',
   },
-];
+]
 
-export { moviesC, userC, savedFilmsC };
+const apiError = [
+  {
+    code: 401,
+    text: 'Неправильно указаны почта или пароль'
+  },
+  {
+    code: 409,
+    text: 'Данная почта уже используется'
+  },
+]
+
+const movieErrors = {
+    nothing: 'Ничего не найдено',
+    input_empty: 'Введите запрос в поисковую строку',
+    fetch_fail: 'Ошибка при получении данных'
+}
+
+const validationError = {
+  email: 'Некоректно введен email',
+  name: 'Разрешены: кириллица, латинница и "-"'
+}
+
+const email_pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+const name_pattern = /^[- ?!,.a-zA-Zа-яА-ЯёЁ\s]+/;
+
+export { personalLinks, commonLinks, allLinks, apiError, movieErrors, email_pattern, name_pattern, validationError }

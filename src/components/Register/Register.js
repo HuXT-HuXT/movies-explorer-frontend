@@ -1,6 +1,7 @@
 import React from 'react';
 import './Register.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
+import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
 export default function Register ({ handleRegistration, apiResponse }) {
   const [name, setName] = React.useState('');
@@ -16,8 +17,9 @@ export default function Register ({ handleRegistration, apiResponse }) {
   const [passwordError, setPasswordError] = React.useState('');
 
   const handleNameValidity = (e) => {
-    if (!e.target.validity.valid) {
-      setNameError(e.target.validationMessage);
+    if (!e.target.validity.valid || !e.target.value.match(name_pattern) ) {
+      console.log(e.target.value.match(name_pattern))
+      setNameError(e.target.validationMessage || validationError.name);
       setNameValid(false);
     } else {
       setNameError('');
@@ -26,8 +28,8 @@ export default function Register ({ handleRegistration, apiResponse }) {
   }
 
   const handleEmailValidity = (e) => {
-    if (!e.target.validity.valid) {
-      setEmailError(e.target.validationMessage);
+    if (!e.target.validity.valid || !e.target.value.match(email_pattern)) {
+      setEmailError(e.target.validationMessage || validationError.email);
       setEmailValid(false);
     } else {
       setEmailError('');
@@ -51,6 +53,7 @@ export default function Register ({ handleRegistration, apiResponse }) {
   };
 
   const handleEmailChange = (e) => {
+    // && !e.target.value.match(email_pattern)
     setEmail(e.target.value);
     handleEmailValidity(e);
   };

@@ -6,34 +6,46 @@ import MoreButton from '../Common/MoreButton/MoreButton';
 import Preloader from '../Common/Preloader/Preloader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { allLinks } from '../constants/links';
+import { allLinks } from '../../constants/constants';
 
-export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, filterMovies, isLoggedIn }) {
+export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, filterMovies, isLoggedIn, allMoviesSearchError }) {
 
   const [ limit, setLimit ] = React.useState(0);
   const [ limitStep, setLimitStep ] = React.useState(0);
-  const [ buttonControl, setButtonControl ] = React.useState(true);
+  const [ buttonControl, setButtonControl ] = React.useState(false);
   const [ isShortActive, setShortActive ] = React.useState(false);
   const [ screenWidth, setScreenWidth ] = React.useState('');
 
   const changeLimits = () => {
-    if (screenWidth >= 1160) {
+    if (window.innerWidth >= 1160) {
       setLimit(12);
       setLimitStep(3);
     }
-    if (screenWidth <= 1160 && screenWidth >=481) {
+    if (window.innerWidth <= 1160 && window.innerWidth >=481) {
       setLimit(8);
       setLimitStep(2);
     }
-    if (screenWidth <= 480) {
+    if (window.innerWidth <= 480) {
       setLimit(5);
       setLimitStep(2);
     }
+    console.log(window.innerWidth);
+    console.log('limit: ', limit, 'screenWidth: ', screenWidth)
   }
 
   function checkWidth () {
     setScreenWidth(window.innerWidth);
     changeLimits();
+  }
+
+  const checkLimit = () => {
+    if (movies.length < limit) {
+      console.log()
+      setButtonControl(false);
+    }
+    if (movies.length > limit) {
+      setButtonControl(true);
+    }
   }
 
   React.useState(() => {
@@ -44,19 +56,18 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
     } else {
       setShortActive(false);
     }
+    //console.log(JSON.parse(localStorage.getItem('filteredMovies')));
   }, [])
+
+  React.useEffect(() => {
+    checkLimit();
+  }, [movies])
 
   React.useEffect(() => {
     function controlResize () {
       setTimeout(checkWidth, 200);
     }
     window.addEventListener('resize', controlResize);
-    if (movies.length <= limit) {
-      setButtonControl(false);
-    }
-    if (movies.length >= limit) {
-      setButtonControl(true);
-    }
     storeSettings();
     return () => window.removeEventListener('resize', controlResize);
   }, [screenWidth, isShortActive]);
@@ -87,6 +98,7 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
       <Header isLogScreen={false} isLoggedIn={isLoggedIn} />
       <main className='movies'>
         <SearchLine
+          errorMessage={allMoviesSearchError}
           filterPhrase={savedPhrase}
           filterMovies={filterMovies}
           handleShortie={handleShortie}

@@ -1,6 +1,6 @@
 .search {
   margin: 70px 70px 10px;
-  padding-bottom: 69px;
+  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #E8E8E8;
@@ -110,6 +110,15 @@
   font-weight: 400;
 }
 
+.search__notification {
+  min-height: 20px;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
 @media screen and (max-width: 1160px) {
   .search {
     margin: 70px 30px 10px;
@@ -197,5 +206,11 @@
     padding-left: 0;
     font-size: 14px;
     line-height: 20px;
+  }
+
+  .search__notification {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
   }
 }

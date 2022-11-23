@@ -1,30 +1,57 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import './Profile.css';
 import Header from '../Header/Header';
+import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
 export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn }) {
-
-  const history = useHistory();
 
   const currentUser = React.useContext(CurrentUserContext);
 
   const [ userName, setUserName ] = React.useState('');
   const [ userEmail, setUserEmail ] = React.useState('');
 
+  const [isNameValid, setNameValid] = React.useState(false);
+  const [isEmailValid, setEmailValid] = React.useState(false);
+
+  const [nameError, setNameError] = React.useState('');
+  const [emailError, setEmailError] = React.useState('');
+
   React.useEffect(() => {
     setUserName(currentUser.name);
     setUserEmail(currentUser.email);
-    history.push('/account');
-  }, []);
+    setNameError('');
+    setEmailError('');
+  }, [currentUser]);
+
+  const handleNameValidity = (e) => {
+    if (!e.target.validity.valid || !e.target.value.match(name_pattern) ) {
+      setNameError(e.target.validationMessage || validationError.name);
+      setNameValid(false);
+    } else {
+      setNameError('');
+      setNameValid(true);
+    }
+  }
 
   const handleNameChange = (e) => {
     setUserName(e.target.value);
+    handleNameValidity(e);
+  }
+
+  const handleEmailValidity = (e) => {
+    if (!e.target.validity.valid || !e.target.value.match(email_pattern)) {
+      setEmailError(e.target.validationMessage || validationError.email);
+      setEmailValid(false);
+    } else {
+      setEmailError('');
+      setEmailValid(true);
+    }
   }
 
   const handleUserEmail = (e) => {
     setUserEmail(e.target.value)
+    handleEmailValidity(e);
   }
 
   const handleSubmit = (e) => {
@@ -45,7 +72,8 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn })
         <span className='profile__input_name'>Email</span>
         <input type='email' className='profile__input' name='userEmail' value={userEmail || ''} onChange={handleUserEmail} />
       </div>
-      <input type='submit' className='profile__button profile__button_submit' value='Редактировать' />
+      <p className='profile__error-on-update'>{!isNameValid || !isEmailValid ? `${nameError} ${emailError}` : ''}</p>
+      <input type='submit' className='profile__button profile__button_submit' value='Редактировать' disabled={!isNameValid && !isEmailValid} />
       <button className='profile__button profile__button_exit' onClick={handleLogout}>Выйти из аккаунта</button>
     </form>
     </>

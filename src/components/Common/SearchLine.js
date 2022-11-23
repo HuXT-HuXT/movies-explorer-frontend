@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchLine.css';
 import zoom from '../../images/zoom.svg';
 
-export default function SearchLine ({ filterMovies, filterPhrase, handleShortie, isShortActive }) {
+export default function SearchLine ({ filterMovies, filterPhrase, handleShortie, isShortActive, errorMessage }) {
 
   const [request, setRequest] = React.useState('');
 
@@ -38,7 +38,7 @@ export default function SearchLine ({ filterMovies, filterPhrase, handleShortie,
           <p className='search__toggle-name'>Короткометражки</p>
         </div>
       </div>
-      <p className='search__notification'></p>
+      <p className='search__notification'>{errorMessage}</p>
     </section>
   )
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
+import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
 export default function Login ({ handleLogin, apiResponse }) {
   const [email, setEmail] = React.useState('');
@@ -13,8 +14,8 @@ export default function Login ({ handleLogin, apiResponse }) {
   const [passwordError, setPasswordError] = React.useState('');
 
   const handleEmailValidity = (e) => {
-    if (!e.target.validity.valid) {
-      setEmailError(e.target.validationMessage);
+    if (!e.target.validity.valid || !e.target.value.match(email_pattern)) {
+      setEmailError(e.target.validationMessage || validationError.email);
       setEmailValid(false);
     } else {
       setEmailError('');

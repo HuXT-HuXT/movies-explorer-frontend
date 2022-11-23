@@ -6,9 +6,9 @@ import MoreButton from '../Common/MoreButton/MoreButton';
 import Preloader from '../Common/Preloader/Preloader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { allLinks } from '../constants/links';
+import { allLinks } from '../../constants/constants';
 
-export default function SavedMovies ({ savedFilms, handleLike, isLoading, filteredSavedFilms, filterSavedFilms, isLoggedIn }) {
+export default function SavedMovies ({ savedFilms, handleLike, isLoading, filteredSavedFilms, filterSavedFilms, isLoggedIn, filteredSavedError }) {
 
   const [ isShortActive, setShortActive ] = React.useState(false);
 
@@ -30,7 +30,7 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
   }
 
   const storeSettings = () => {
-    localStorage.setItem('shortInSavedFilmsOn', Boolean(isShortActive));
+    localStorage.setItem('shortInSavedFilmsOn', isShortActive);
   }
 
   const savedPhrase = localStorage.getItem('filterSavedPhrase') ? localStorage.getItem('filterSavedPhrase') : '';
@@ -40,6 +40,7 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
       <Header isLogScreen={false} isLoggedIn={isLoggedIn} />
       <main className='saved-movies'>
         <SearchLine
+          errorMessage={filteredSavedError}
           filterPhrase = {savedPhrase}
           filterMovies={filterSavedFilms}
           handleShortie={handleShortie}

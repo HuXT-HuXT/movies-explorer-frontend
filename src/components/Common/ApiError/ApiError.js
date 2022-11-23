@@ -1,6 +1,6 @@
 import React from 'react';
 import './ApiError.css';
-import { apiError } from '../../constants/links';
+import { apiError } from '../../../constants/constants';
 
 export default function ApiError ({ apiResponse }) {
 
