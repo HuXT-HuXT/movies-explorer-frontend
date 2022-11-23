@@ -29,8 +29,6 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
       setLimit(5);
       setLimitStep(2);
     }
-    console.log(window.innerWidth);
-    console.log('limit: ', limit, 'screenWidth: ', screenWidth)
   }
 
   function checkWidth () {
@@ -40,7 +38,6 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
 
   const checkLimit = () => {
     if (movies.length < limit) {
-      console.log()
       setButtonControl(false);
     }
     if (movies.length > limit) {
@@ -56,7 +53,6 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
     } else {
       setShortActive(false);
     }
-    //console.log(JSON.parse(localStorage.getItem('filteredMovies')));
   }, [])
 
   React.useEffect(() => {
