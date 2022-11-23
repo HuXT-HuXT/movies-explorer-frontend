@@ -15,8 +15,7 @@ import ProtectedRoute from '../../utils/ProtectedRoute';
 import * as auth from '../../utils/Auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import { personalLinks, movieErrors } from '../../constants/constants';
-
-
+//15:22
 function App() {
 
   const history = useHistory();
@@ -67,7 +66,6 @@ function App() {
   React.useEffect(() => {
     handleCookie();
   }, []);
-
 
   const filterMovies = (phrase) => {
     if (!phrase) {
