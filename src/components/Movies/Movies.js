@@ -85,7 +85,7 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
     localStorage.setItem('limit', limit);
   }
 
-  const processedList = JSON.parse(localStorage.getItem('filteredMovies')).slice(0, limit);
+  const processedList =  JSON.parse(localStorage.getItem('filteredMovies')) ? JSON.parse(localStorage.getItem('filteredMovies')).slice(0, limit) : movies.slice(0, limit);
 
   const savedPhrase = localStorage.getItem('filterMoviePhrase') ? localStorage.getItem('filterMoviePhrase') : '';
 
