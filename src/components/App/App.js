@@ -82,7 +82,6 @@ function App() {
       .then(data => {
         const filteredResult = data.filter((movie) => movie.nameRU.toLowerCase().includes(phrase.toLowerCase()))
         setFilteredMovies(filteredResult);
-        console.log(filteredResult)
         localStorage.setItem('filteredMovies', JSON.stringify(filteredResult));
         setLoading(false);
         setAllMoviesSearchError(filteredResult.length === 0 ? movieErrors.nothing : '');
