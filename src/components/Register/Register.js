@@ -4,7 +4,7 @@ import AuthForm from '../Common/AuthForm/AuthForm';
 import Header from '../Header/Header';
 import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
-export default function Register ({ handleRegistration, apiResponse }) {
+export default function Register ({ handleRegistration, apiResponse, resetApiError }) {
   const [ name, setName ] = React.useState('');
   const [ email, setEmail ] = React.useState('');
   const [ password, setPassword ] = React.useState('');
@@ -17,11 +17,9 @@ export default function Register ({ handleRegistration, apiResponse }) {
   const [ emailError, setEmailError ] = React.useState('');
   const [ passwordError, setPasswordError ] = React.useState('');
 
-  const [ errorHandler, setErrorHandler ] = React.useState('');
-
   React.useEffect(() => {
-    setErrorHandler('')
-  }, [])
+    resetApiError();
+  }, []);
 
   const handleNameValidity = (e) => {
     if (!e.target.validity.valid || !e.target.value.match(name_pattern) ) {
@@ -59,7 +57,6 @@ export default function Register ({ handleRegistration, apiResponse }) {
   };
 
   const handleEmailChange = (e) => {
-    // && !e.target.value.match(email_pattern)
     setEmail(e.target.value);
     handleEmailValidity(e);
   };
@@ -72,7 +69,6 @@ export default function Register ({ handleRegistration, apiResponse }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegistration(name, email, password);
-    setErrorHandler(apiResponse);
   }
 
   return (
@@ -85,7 +81,7 @@ export default function Register ({ handleRegistration, apiResponse }) {
         footerText='Уже зарегистрированы?'
         footerLink='Войти'
         disabled={isEmailValid && isPasswordValid && isNameValid}
-        apiResponse={errorHandler} >
+        apiResponse={apiResponse} >
         <p className='register__name'>Имя</p>
         <input type='text' className={`register__input ${!isNameValid ? 'register__input_error' : ''}`} required minLength='2' maxLength='30' value={name} onChange={handleNameChange} />
         <span className='register__error'>{nameError}</span>

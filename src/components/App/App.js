@@ -237,6 +237,10 @@ function App() {
     }
   }
 
+  const resetApiError = () => {
+    setApiResponse('');
+  }
+
   return (
     <div className='page'>
 
@@ -255,7 +259,8 @@ function App() {
             <Register
               isLoggedIn={isLoggedIn}
               handleRegistration={handleRegistration}
-              apiResponse={apiResponse} />
+              apiResponse={apiResponse}
+              resetApiError={resetApiError} />
             )}
           </Route>
 
@@ -266,7 +271,8 @@ function App() {
             <Login
               isLoggedIn={isInside}
               handleLogin={handleLogin}
-              apiResponse={apiResponse} />
+              apiResponse={apiResponse}
+              resetApiError={resetApiError} />
             )}
           </Route>
 
@@ -295,6 +301,7 @@ function App() {
             handleLogout={handleLogout}
             isLoggedIn={isLoggedIn}
             apiResponse={apiResponse}
+            resetApiError={resetApiError}
             component={Profile} />
 
           <Route path='/*'>
