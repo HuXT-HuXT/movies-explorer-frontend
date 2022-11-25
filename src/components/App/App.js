@@ -59,6 +59,9 @@ function App() {
         setArrayOfNames(data.data.map(movie => movie.nameRU));
       })
       .catch((message) => {
+        if (message === 401) {
+          dropAllSettings();
+        }
         console.log(message)
         setFilteredSavedError(movieErrors.fetch_fail);
       })
@@ -104,6 +107,9 @@ function App() {
         setAllMoviesSearchError(filteredResult.length === 0 ? movieErrors.nothing : '');
       })
       .catch(err => {
+        if (err === 401) {
+          dropAllSettings();
+        }
         console.log(err);
         setAllMoviesSearchError(movieErrors.fetch_fail);
       })
@@ -223,6 +229,9 @@ function App() {
           setArrayOfNames((state) => state.filter((nameRU) => nameRU !== movie.nameRU));
         })
         .catch((message) => {
+          if (message === 401) {
+            dropAllSettings();
+          }
           console.log(message);
         });
     } else {
@@ -232,6 +241,9 @@ function App() {
         setArrayOfNames([data.nameRU, ...arrayOfNames]);
       })
       .catch((message) => {
+        if (message === 401) {
+          dropAllSettings();
+        }
         console.log(message);
       });
     }
