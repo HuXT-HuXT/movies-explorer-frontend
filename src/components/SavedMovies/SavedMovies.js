@@ -12,21 +12,8 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
 
   const [ isShortActive, setShortActive ] = React.useState(false);
 
-  React.useEffect(() => {
-    setShortActive(JSON.parse(localStorage.getItem('shortInSavedFilmsOn')));
-  }, [])
-
-  React.useEffect(() => {
-    storeSettings();
-  }, [isShortActive])
-
   const handleShortie = () => {
     setShortActive(!isShortActive);
-    storeSettings();
-  }
-
-  const storeSettings = () => {
-    localStorage.setItem('shortInSavedFilmsOn', JSON.stringify(isShortActive));
   }
 
   return (
