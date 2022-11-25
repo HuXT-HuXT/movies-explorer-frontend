@@ -4,7 +4,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
-export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn }) {
+export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, apiResponse }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -16,20 +16,33 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn })
 
   const [nameError, setNameError] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
+  const [ errorHandler, setErrorHandler ] = React.useState('');
+
+  React.useEffect(() => {
+    setErrorHandler('');
+
+  }, [])
 
   React.useEffect(() => {
     setUserName(currentUser.name);
     setUserEmail(currentUser.email);
     setNameError('');
     setEmailError('');
+    setNameValid(false);
+    setEmailValid(false);
   }, [currentUser]);
 
   const handleNameValidity = (e) => {
-    if (!e.target.validity.valid || !e.target.value.match(name_pattern) ) {
+    if (!e.target.validity.valid || !e.target.value.match(name_pattern)) {
       setNameError(e.target.validationMessage || validationError.name);
       setNameValid(false);
     } else {
       setNameError('');
+      setNameValid(true);
+    }
+    if (e.target.value === currentUser.name) {
+      setNameValid(false);
+    } else {
       setNameValid(true);
     }
   }
@@ -47,6 +60,11 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn })
       setEmailError('');
       setEmailValid(true);
     }
+    if (e.target.value === currentUser.email) {
+      setEmailValid(false);
+    } else {
+      setEmailValid(true);
+    }
   }
 
   const handleUserEmail = (e) => {
@@ -57,6 +75,8 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn })
   const handleSubmit = (e) => {
     e.preventDefault();
     handleUserUpdate(userName, userEmail);
+    setErrorHandler(apiResponse);
+    console.log(apiResponse);
   }
 
   return (
@@ -72,7 +92,7 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn })
         <span className='profile__input_name'>Email</span>
         <input type='email' className='profile__input' name='userEmail' value={userEmail || ''} onChange={handleUserEmail} />
       </div>
-      <p className='profile__error-on-update'>{!isNameValid || !isEmailValid ? `${nameError} ${emailError}` : ''}</p>
+      <p className='profile__error-on-update'>{!isNameValid || !isEmailValid || errorHandler ? `${nameError} ${emailError} ${errorHandler}` : ''}</p>
       <input type='submit' className='profile__button profile__button_submit' value='Редактировать' disabled={!isNameValid && !isEmailValid} />
       <button className='profile__button profile__button_exit' onClick={handleLogout}>Выйти из аккаунта</button>
     </form>

@@ -51,7 +51,15 @@ const apiError = [
     code: 409,
     text: 'Данная почта уже используется'
   },
+  {
+    code: 404,
+    text: 'Не найдено'
+  },
 ]
+
+const apiErr401 = 'Неправильно указаны почта или пароль';
+const apiErr409 = 'Данная почта уже используется';
+const apiErrDefault = 'Что-то пошло не так :('
 
 const movieErrors = {
     nothing: 'Ничего не найдено',
@@ -67,4 +75,33 @@ const validationError = {
 const email_pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const name_pattern = /^[- ?!,.a-zA-Zа-яА-ЯёЁ\s]+/;
 
-export { personalLinks, commonLinks, allLinks, apiError, movieErrors, email_pattern, name_pattern, validationError }
+const english_pattern = /^[a-zA-Z0-9\s]+$/;
+const russian_pattern = /^[а-яёА-ЯЁ0-9\s]+$/;
+
+const cardLimits = {
+  limitFor1280: 12,
+  limitFor768: 8,
+  limitFor480: 5,
+  offset1280: 3,
+  offset768: 2
+}
+
+const shortieLength = 40;
+
+export {
+  personalLinks,
+  commonLinks,
+  allLinks,
+  apiError,
+  movieErrors,
+  email_pattern,
+  name_pattern,
+  validationError,
+  english_pattern,
+  russian_pattern,
+  cardLimits,
+  shortieLength,
+  apiErr401,
+  apiErr409,
+  apiErrDefault
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 import './GridContainer.css';
 import MovieCard from '../MovieCard/MovieCard';
+import { shortieLength } from '../../../constants/constants';
 
 export default function GridContainer ({ movies, buttonClass, handleLike, arrayOfNames, isShortActive }) {
 
-  const cuttedList = isShortActive ? movies.filter((movie) => movie.duration <=40) : movies
+  const cuttedList = isShortActive ? movies.filter((movie) => movie.duration <= shortieLength) : movies
 
   return (
     <section className='grid-container'>

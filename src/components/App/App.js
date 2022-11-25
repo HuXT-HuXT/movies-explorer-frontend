@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Redirect, useHistory, Switch, } from "react-router-dom";
 import './App.css';
-import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -14,8 +13,8 @@ import * as api from '../../utils/MainApi';
 import ProtectedRoute from '../../utils/ProtectedRoute';
 import * as auth from '../../utils/Auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import { personalLinks, movieErrors } from '../../constants/constants';
-//15:22
+import { movieErrors, english_pattern, apiErr401, apiErr409, apiErrDefault } from '../../constants/constants';
+
 function App() {
 
   const history = useHistory();
@@ -25,6 +24,8 @@ function App() {
   const [ isLoggedIn, setLoggedIn ] = React.useState(true);
 
   const [ isLoading, setLoading] = React.useState(false);
+
+  const [ isInside, setInside ] = React.useState(false);
 
   const [ savedFilms, setSavedFilms ] = React.useState([]);
   const [ filteredMovies, setFilteredMovies] = React.useState([]);
@@ -41,6 +42,7 @@ function App() {
       api.getUserData()
         .then((data) => {
           setCurrentUser(data);
+          setInside(true);
         })
         .catch((message) => {
           console.log(message);
@@ -67,6 +69,19 @@ function App() {
     handleCookie();
   }, []);
 
+  const dropAllSettings = () => {
+    setSavedFilms('');
+    setFilteredMovies();
+    localStorage.clear();
+    setLoggedIn(false);
+    setArrayOfNames([]);
+    setApiResponse('');
+    setFilteredSavedError('');
+    setCurrentUser({});
+    setInside(false);
+    setApiResponse('');
+  }
+
   const filterMovies = (phrase) => {
     if (!phrase) {
       setAllMoviesSearchError(movieErrors.input_empty);
@@ -78,20 +93,28 @@ function App() {
     localStorage.setItem('filterMoviePhrase', phrase);
     moviesApi.getMovies()
       .then(data => {
-        const filteredResult = data.filter((movie) => movie.nameRU.toLowerCase().includes(phrase.toLowerCase()))
+        let filteredResult;
+        if (phrase.match(english_pattern)) {
+          filteredResult = data.filter((movie) => movie.nameEN.toLowerCase().includes(phrase.toLowerCase()))
+        } else {
+          filteredResult = data.filter((movie) => movie.nameRU.toLowerCase().includes(phrase.toLowerCase()))
+        }
         setFilteredMovies(filteredResult);
         localStorage.setItem('filteredMovies', JSON.stringify(filteredResult));
-        setLoading(false);
         setAllMoviesSearchError(filteredResult.length === 0 ? movieErrors.nothing : '');
       })
       .catch(err => {
         console.log(err);
         setAllMoviesSearchError(movieErrors.fetch_fail);
       })
+      .finally(() => setLoading(false));
   };
 
   const filterSavedFilms = (phrase) => {
-    localStorage.setItem('filterSavedPhrase', phrase);
+    if (!phrase) {
+      setFilteredSavedError(movieErrors.input_empty);
+    }
+    setFilteredSavedError('');
     const filteredSavedMovies = savedFilms.filter((savedFilm) => savedFilm.nameRU.toLowerCase().includes(phrase.toLowerCase()))
     setFilteredSavedFilms(filteredSavedMovies);
     setFilteredSavedError(filteredSavedMovies.length === 0 ? movieErrors.nothing : '');
@@ -108,12 +131,13 @@ function App() {
         setLoggedIn(true);
       })
       .catch((message) => {
-        console.log(message);
-        setLoggedIn(false);
+        console.log('Сервер недоступен');
+        dropAllSettings();
       })
   }
 
   const handleRegistration = (name, email, password) => {
+    setApiResponse('');
     auth.register(name, email, password)
       .then((data) => {
         setApiResponse('');
@@ -122,28 +146,52 @@ function App() {
         }, 1000)
       })
       .catch((message) => {
-        setApiResponse(message);
+        if (message === 401) {
+          setApiResponse(apiErr401);
+        } else if (message === 409) {
+          setApiResponse(apiErr409);
+        } else {
+          setApiResponse(apiErrDefault);
+        }
+        console.log(message);
       })
   }
 
   const handleLogin = (email, password) => {
+    setApiResponse('');
     auth.auth(email, password)
       .then((data) => {
         setApiResponse('');
         setLoggedIn(true);
-        history.push('/');
+        history.push('/movies');
+        setInside(true);
       })
       .catch((message) => {
-        setApiResponse(message);
+        if (message === 401) {
+          setApiResponse(apiErr401);
+        } else if (message === 409) {
+          setApiResponse(apiErr409);
+        } else {
+          setApiResponse(apiErrDefault);
+        }
+        console.log(message);
       })
   }
 
   const handleUserUpdate = (name, email) => {
+    setApiResponse('');
     api.updateUser(name, email)
       .then((data) => {
         setCurrentUser(data);
       })
       .catch((message) => {
+        if (message === 401) {
+          setApiResponse(apiErr401);
+        } else if (message === 409) {
+          setApiResponse(apiErr409);
+        } else {
+          setApiResponse(apiErrDefault);
+        }
         console.log(message);
       })
   }
@@ -151,19 +199,22 @@ function App() {
   const handleLogout = () => {
     api.logout()
       .then((data) => {
-        setLoggedIn(false);
-        setCurrentUser({});
         history.push('/');
-        localStorage.clear();
-        setFilteredMovies([]);
+        dropAllSettings();
       })
       .catch((message) => {
+        if (message === 401) {
+          setApiResponse(apiErr401);
+        } else if (message === 409) {
+          setApiResponse(apiErr409);
+        } else {
+          setApiResponse(apiErrDefault);
+        }
         console.log(message);
       })
   }
 
   const handleLike = (movie) => {
-    console.log(arrayOfNames);
     if (arrayOfNames.includes(movie.nameRU)) {
       const movieToDelete = savedFilms.find(movieToCheck => movieToCheck.nameRU === movie.nameRU);
       api.dislikeMovie(movieToDelete)
@@ -179,7 +230,6 @@ function App() {
       .then((data) => {
         setSavedFilms([data, ...savedFilms]);
         setArrayOfNames([data.nameRU, ...arrayOfNames]);
-        console.log(data);
       })
       .catch((message) => {
         console.log(message);
@@ -195,7 +245,29 @@ function App() {
         <Switch>
 
           <Route exact path='/'>
-            <Main personalLinks={personalLinks} isLoggedIn={isLoggedIn} />
+            <Main isLoggedIn={isLoggedIn} />
+          </Route>
+
+          <Route path='/sign-up'>
+            {isInside ? (
+              <Redirect to='/movies' />
+            ) : (
+            <Register
+              isLoggedIn={isLoggedIn}
+              handleRegistration={handleRegistration}
+              apiResponse={apiResponse} />
+            )}
+          </Route>
+
+          <Route path='/sign-in'>
+            {isInside ? (
+              <Redirect to='/movies' />
+            ) : (
+            <Login
+              isLoggedIn={isInside}
+              handleLogin={handleLogin}
+              apiResponse={apiResponse} />
+            )}
           </Route>
 
           <ProtectedRoute path='/movies'
@@ -222,21 +294,8 @@ function App() {
             handleUserUpdate={handleUserUpdate}
             handleLogout={handleLogout}
             isLoggedIn={isLoggedIn}
+            apiResponse={apiResponse}
             component={Profile} />
-
-          <Route path='/sign-up'>
-            <Header isLogScreen={true} />
-            <Register
-              handleRegistration={handleRegistration}
-              apiResponse={apiResponse} />
-          </Route>
-
-          <Route path='/sign-in'>
-            <Header isLogScreen={true} />
-            <Login
-              handleLogin={handleLogin}
-              apiResponse={apiResponse} />
-          </Route>
 
           <Route path='/*'>
             <NotFound goBack={goBack} />

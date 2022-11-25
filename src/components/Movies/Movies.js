@@ -6,7 +6,7 @@ import MoreButton from '../Common/MoreButton/MoreButton';
 import Preloader from '../Common/Preloader/Preloader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { allLinks } from '../../constants/constants';
+import { allLinks, cardLimits } from '../../constants/constants';
 
 export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, filterMovies, isLoggedIn, allMoviesSearchError }) {
 
@@ -18,16 +18,16 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
 
   const changeLimits = () => {
     if (window.innerWidth >= 1160) {
-      setLimit(12);
-      setLimitStep(3);
+      setLimit(cardLimits.limitFor1280);
+      setLimitStep(cardLimits.offset1280);
     }
     if (window.innerWidth <= 1160 && window.innerWidth >=481) {
-      setLimit(8);
-      setLimitStep(2);
+      setLimit(cardLimits.limitFor768);
+      setLimitStep(cardLimits.offset768);
     }
     if (window.innerWidth <= 480) {
-      setLimit(5);
-      setLimitStep(2);
+      setLimit(cardLimits.limitFor480);
+      setLimitStep(cardLimits.offset768);
     }
   }
 
@@ -37,6 +37,9 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
   }
 
   const checkLimit = () => {
+    if (!movies) {
+      return;
+    }
     if (movies.length < limit) {
       setButtonControl(false);
     }
@@ -48,11 +51,7 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
   React.useState(() => {
     setScreenWidth(window.innerWidth);
     changeLimits();
-    if (localStorage.getItem('shortInAllMoviesOn') === 'true') {
-      setShortActive(true);
-    } else {
-      setShortActive(false);
-    }
+    setShortActive(JSON.parse(localStorage.getItem('shortInAllMoviesOn')));
   }, [])
 
   React.useEffect(() => {
@@ -81,11 +80,11 @@ export default function Movies ({ arrayOfNames, movies, handleLike, isLoading, f
   }
 
   const storeSettings = () => {
-    localStorage.setItem('shortInAllMoviesOn', isShortActive);
+    localStorage.setItem('shortInAllMoviesOn', JSON.stringify(isShortActive));
     localStorage.setItem('limit', limit);
   }
 
-  const processedList =  JSON.parse(localStorage.getItem('filteredMovies')) ? JSON.parse(localStorage.getItem('filteredMovies')).slice(0, limit) : [];
+  const processedList = JSON.parse(localStorage.getItem('filteredMovies')) ? JSON.parse(localStorage.getItem('filteredMovies')).slice(0, limit) : [];
 
   const savedPhrase = localStorage.getItem('filterMoviePhrase') ? localStorage.getItem('filterMoviePhrase') : '';
 

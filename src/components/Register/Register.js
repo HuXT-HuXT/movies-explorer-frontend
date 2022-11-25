@@ -1,24 +1,30 @@
 import React from 'react';
 import './Register.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
+import Header from '../Header/Header';
 import { email_pattern, name_pattern, validationError } from '../../constants/constants';
 
 export default function Register ({ handleRegistration, apiResponse }) {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [ name, setName ] = React.useState('');
+  const [ email, setEmail ] = React.useState('');
+  const [ password, setPassword ] = React.useState('');
 
-  const [isNameValid, setNameValid] = React.useState(false);
-  const [isEmailValid, setEmailValid] = React.useState(false);
-  const [isPasswordValid, setPasswordValid] = React.useState(false);
+  const [ isNameValid, setNameValid ] = React.useState(false);
+  const [ isEmailValid, setEmailValid ] = React.useState(false);
+  const [ isPasswordValid, setPasswordValid ] = React.useState(false);
 
-  const [nameError, setNameError] = React.useState('');
-  const [emailError, setEmailError] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState('');
+  const [ nameError, setNameError ] = React.useState('');
+  const [ emailError, setEmailError ] = React.useState('');
+  const [ passwordError, setPasswordError ] = React.useState('');
+
+  const [ errorHandler, setErrorHandler ] = React.useState('');
+
+  React.useEffect(() => {
+    setErrorHandler('')
+  }, [])
 
   const handleNameValidity = (e) => {
     if (!e.target.validity.valid || !e.target.value.match(name_pattern) ) {
-      console.log(e.target.value.match(name_pattern))
       setNameError(e.target.validationMessage || validationError.name);
       setNameValid(false);
     } else {
@@ -66,9 +72,12 @@ export default function Register ({ handleRegistration, apiResponse }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegistration(name, email, password);
+    setErrorHandler(apiResponse);
   }
 
   return (
+    <>
+      <Header isLogScreen={true} />
       <AuthForm
         handleSubmit={handleSubmit}
         title='Добро пожаловать!'
@@ -76,7 +85,7 @@ export default function Register ({ handleRegistration, apiResponse }) {
         footerText='Уже зарегистрированы?'
         footerLink='Войти'
         disabled={isEmailValid && isPasswordValid && isNameValid}
-        apiResponse={apiResponse} >
+        apiResponse={errorHandler} >
         <p className='register__name'>Имя</p>
         <input type='text' className={`register__input ${!isNameValid ? 'register__input_error' : ''}`} required minLength='2' maxLength='30' value={name} onChange={handleNameChange} />
         <span className='register__error'>{nameError}</span>
@@ -87,5 +96,6 @@ export default function Register ({ handleRegistration, apiResponse }) {
         <input type='password' className={`register__input ${!isPasswordValid ? 'register__input_error' : ''}`} required minLength='5' maxLength='30' value={password} onChange={handlePasswordChange} />
         <span className='register__error'>{passwordError}</span>
       </AuthForm>
+    </>
   );
 };

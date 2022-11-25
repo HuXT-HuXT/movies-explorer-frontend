@@ -1,7 +1,8 @@
 import React from 'react';
 import './Login.css';
 import AuthForm from '../Common/AuthForm/AuthForm';
-import { email_pattern, name_pattern, validationError } from '../../constants/constants';
+import Header from '../Header/Header';
+import { email_pattern, validationError } from '../../constants/constants';
 
 export default function Login ({ handleLogin, apiResponse }) {
   const [email, setEmail] = React.useState('');
@@ -12,6 +13,12 @@ export default function Login ({ handleLogin, apiResponse }) {
 
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+
+  const [ errorHandler, setErrorHandler ] = React.useState('');
+
+  React.useEffect(() => {
+    setErrorHandler('')
+  }, [])
 
   const handleEmailValidity = (e) => {
     if (!e.target.validity.valid || !e.target.value.match(email_pattern)) {
@@ -46,9 +53,12 @@ export default function Login ({ handleLogin, apiResponse }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(email, password);
+    setErrorHandler(apiResponse);
   }
 
   return (
+    <>
+      <Header isLogScreen={true} />
       <AuthForm
         handleSubmit={handleSubmit}
         title='Рады видеть!'
@@ -56,7 +66,7 @@ export default function Login ({ handleLogin, apiResponse }) {
         footerText='Ещё не зарегистрированы?'
         footerLink='Регистрация'
         disabled={isEmailValid && isPasswordValid}
-        apiResponse={apiResponse} >
+        apiResponse={errorHandler} >
         <p className='login__name'>E-mail</p>
         <input type='email' className={`login__input ${!isEmailValid ? 'login__input_error' : ''}`} required value={email} onChange={handleEmailChange} />
         <span className='login__error'>{emailError}</span>
@@ -65,5 +75,6 @@ export default function Login ({ handleLogin, apiResponse }) {
         <span className='login__error'>{passwordError}</span>
         <p className='login__api-error'></p>
       </AuthForm>
+    </>
   );
 };

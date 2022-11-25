@@ -13,11 +13,7 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
   const [ isShortActive, setShortActive ] = React.useState(false);
 
   React.useEffect(() => {
-    if (localStorage.getItem('shortInSavedFilmsOn') === 'true') {
-      setShortActive(true);
-    } else {
-      setShortActive(false);
-    }
+    setShortActive(JSON.parse(localStorage.getItem('shortInSavedFilmsOn')));
   }, [])
 
   React.useEffect(() => {
@@ -30,10 +26,8 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
   }
 
   const storeSettings = () => {
-    localStorage.setItem('shortInSavedFilmsOn', isShortActive);
+    localStorage.setItem('shortInSavedFilmsOn', JSON.stringify(isShortActive));
   }
-
-  const savedPhrase = localStorage.getItem('filterSavedPhrase') ? localStorage.getItem('filterSavedPhrase') : '';
 
   return (
     <>
@@ -41,7 +35,7 @@ export default function SavedMovies ({ savedFilms, handleLike, isLoading, filter
       <main className='saved-movies'>
         <SearchLine
           errorMessage={filteredSavedError}
-          filterPhrase = {savedPhrase}
+          filterPhrase = {''}
           filterMovies={filterSavedFilms}
           handleShortie={handleShortie}
           isShortActive={isShortActive} />
