@@ -68,8 +68,15 @@
   font-size: 13px;
   line-height: 16px;
   font-weight: 400;
-  color: #EE3465;
   text-align: center;
+}
+
+.profile__error-on-update_fail {
+  color: #EE3465;
+}
+
+.profile__error-on-update_success {
+  color: #2be080;
 }
 
 @media screen and (max-width: 768px) {

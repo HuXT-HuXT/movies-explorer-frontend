@@ -59,7 +59,8 @@ const apiError = [
 
 const apiErr401 = 'Неправильно указаны почта или пароль';
 const apiErr409 = 'Данная почта уже используется';
-const apiErrDefault = 'Что-то пошло не так :('
+const apiErrDefault = 'Что-то пошло не так :(';
+const apiSuccess = 'Данные успешно обновлены';
 
 const movieErrors = {
     nothing: 'Ничего не найдено',
@@ -103,5 +104,6 @@ export {
   shortieLength,
   apiErr401,
   apiErr409,
-  apiErrDefault
+  apiErrDefault,
+  apiSuccess
 }

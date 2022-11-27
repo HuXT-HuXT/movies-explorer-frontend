@@ -13,7 +13,7 @@ import * as api from '../../utils/MainApi';
 import ProtectedRoute from '../../utils/ProtectedRoute';
 import * as auth from '../../utils/Auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import { movieErrors, english_pattern, apiErr401, apiErr409, apiErrDefault } from '../../constants/constants';
+import { movieErrors, english_pattern, apiErr401, apiErr409, apiErrDefault, apiSuccess } from '../../constants/constants';
 
 function App() {
 
@@ -188,6 +188,7 @@ function App() {
     setApiResponse('');
     api.updateUser(name, email)
       .then((data) => {
+        setApiResponse(apiSuccess);
         setCurrentUser(data);
       })
       .catch((message) => {

@@ -17,6 +17,9 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, a
   const [nameError, setNameError] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
 
+  const errorClass = 'profile__error-on-update profile__error-on-update_fail';
+  const successClass = 'profile__error-on-update profile__error-on-update_success';
+
   React.useEffect(() => {
     resetApiError();
   }, []);
@@ -31,16 +34,14 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, a
   }, [currentUser]);
 
   const handleNameValidity = (e) => {
-    if (!e.target.validity.valid || !e.target.value.match(name_pattern)) {
+    if (!e.target.validity.valid || !e.target.value.match(name_pattern) || e.target.value === currentUser.name) {
       setNameError(e.target.validationMessage || validationError.name);
       setNameValid(false);
+      if (e.target.value === currentUser.name) {
+        setNameError('');
+      }
     } else {
       setNameError('');
-      setNameValid(true);
-    }
-    if (e.target.value === currentUser.name) {
-      setNameValid(false);
-    } else {
       setNameValid(true);
     }
   }
@@ -48,19 +49,18 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, a
   const handleNameChange = (e) => {
     setUserName(e.target.value);
     handleNameValidity(e);
+    resetApiError();
   }
 
   const handleEmailValidity = (e) => {
-    if (!e.target.validity.valid || !e.target.value.match(email_pattern)) {
+    if (!e.target.validity.valid || !e.target.value.match(email_pattern) || e.target.value === currentUser.email) {
       setEmailError(e.target.validationMessage || validationError.email);
       setEmailValid(false);
+      if (e.target.value === currentUser.email) {
+        setEmailError('');
+      }
     } else {
       setEmailError('');
-      setEmailValid(true);
-    }
-    if (e.target.value === currentUser.email) {
-      setEmailValid(false);
-    } else {
       setEmailValid(true);
     }
   }
@@ -68,6 +68,7 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, a
   const handleUserEmail = (e) => {
     setUserEmail(e.target.value)
     handleEmailValidity(e);
+    resetApiError();
   }
 
   const handleSubmit = (e) => {
@@ -88,7 +89,7 @@ export default function Profile ({ handleUserUpdate, handleLogout, isLoggedIn, a
         <span className='profile__input_name'>Email</span>
         <input type='email' className='profile__input' name='userEmail' value={userEmail || ''} onChange={handleUserEmail} />
       </div>
-      <p className='profile__error-on-update'>{!isNameValid || !isEmailValid || apiResponse ? `${nameError} ${emailError} ${apiResponse}` : ''}</p>
+      <p className={apiResponse.includes('успешно') ? successClass : errorClass}>{!isNameValid || !isEmailValid || apiResponse ? `${nameError} ${emailError} ${apiResponse}` : ''}</p>
       <input type='submit' className='profile__button profile__button_submit' value='Редактировать' disabled={!isNameValid && !isEmailValid} />
       <button className='profile__button profile__button_exit' onClick={handleLogout}>Выйти из аккаунта</button>
     </form>
