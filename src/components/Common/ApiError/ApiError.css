@@ -1,0 +1,8 @@
+.api-error {
+  min-height: 14px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 400;
+  text-align: center;
+  color: #EE3465;
+}

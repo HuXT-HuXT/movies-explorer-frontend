@@ -27,7 +27,7 @@ export default function AboutMe ({ personalLinks }) {
       <ul className='aboutme__link-list'>
         <ArrowLink link='https://github.com/HuXT-HuXT/how-to-learn' value='Статичный сайт' last={false} />
         <ArrowLink link='https://huxt-huxt.github.io/russian-travel/' value='Адаптивный сайт' last={false} />
-        <ArrowLink link='https://https://github.com/HuXT-HuXT/how-to-learn' value='Одностраничное приложение' last={true} />
+        <ArrowLink link='https://huxt.nomoredomains.icu/' value='Одностраничное приложение' last={true} />
       </ul>
     </section>
   );

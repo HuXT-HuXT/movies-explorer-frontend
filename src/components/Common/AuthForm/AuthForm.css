@@ -26,6 +26,10 @@
   border: none;
 }
 
+.auth-form__submit_disabled {
+  background-color: #A0A0A0;
+}
+
 .auth-form__footer {
   width: 100%;
   margin: 16px 0 70px;
@@ -45,7 +49,14 @@
   opacity: .7;
   cursor: pointer;
 }
-
+.auth-form__api-error {
+  min-height: 14px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 400;
+  text-align: center;
+  color: #EE3465;
+}
 
 @media screen and (max-width: 480px) {
   .auth-form {

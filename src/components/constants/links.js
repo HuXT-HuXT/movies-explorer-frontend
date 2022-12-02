@@ -42,4 +42,15 @@ const allLinks = [
   },
 ]
 
-export { personalLinks, commonLinks, allLinks }
+const apiError = [
+  {
+    code: 401,
+    text: 'Неправильно указаны почта или пароль'
+  },
+  {
+    code: 409,
+    text: 'Данная почта уже используется'
+  },
+]
+
+export { personalLinks, commonLinks, allLinks, apiError }

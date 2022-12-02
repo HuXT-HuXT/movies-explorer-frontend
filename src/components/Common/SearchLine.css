@@ -1,6 +1,8 @@
 .search {
   margin: 70px 70px 10px;
-  padding-bottom: 69px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
   border-bottom: 1px solid #E8E8E8;
 }
 
@@ -38,6 +40,8 @@
 
 .search__input:focus {
   outline: none;
+  border: 1px solid #A0A0A0;
+  border-radius: 10px;
 }
 
 .search__submit {
@@ -103,6 +107,15 @@
   padding-right: 19px;
   font-size: 13px;
   line-height: 18px;
+  font-weight: 400;
+}
+
+.search__notification {
+  min-height: 20px;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
   font-weight: 400;
 }
 
@@ -193,5 +206,11 @@
     padding-left: 0;
     font-size: 14px;
     line-height: 20px;
+  }
+
+  .search__notification {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
   }
 }

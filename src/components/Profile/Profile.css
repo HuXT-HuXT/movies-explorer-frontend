@@ -54,12 +54,29 @@
 }
 
 .profile__button_submit {
-  margin-top: 220px;
+  margin-top: 160px;
 }
 
 .profile__button_exit {
   padding-top: 16px;
   color: #EE3465;
+}
+
+.profile__error-on-update {
+  min-height: 32px;
+  margin-top: 28px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.profile__error-on-update_fail {
+  color: #EE3465;
+}
+
+.profile__error-on-update_success {
+  color: #2be080;
 }
 
 @media screen and (max-width: 768px) {
